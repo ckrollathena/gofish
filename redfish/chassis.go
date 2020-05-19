@@ -7,6 +7,7 @@ package redfish
 import (
 	"encoding/json"
 	"fmt"
+	"os"
 
 	"github.com/stmcginnis/gofish/common"
 )
@@ -152,6 +153,8 @@ func GetChassis(c common.Client, uri string) (*Chassis, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
+
+	os.Stderr.WriteString(uri)	
 
 	var chassis Chassis
 	err = json.NewDecoder(resp.Body).Decode(&chassis)
